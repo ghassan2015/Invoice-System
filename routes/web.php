@@ -20,5 +20,9 @@ Route::get('/', function () {
 
 
 Auth::routes();
+Route::resource('invoice',\App\Http\Controllers\Dashborad\InvoicesController::class);
+Route::resource('sections',\App\Http\Controllers\Dashborad\SectionController::class);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('/{page}', '\App\Http\Controllers\Admin\AdminController@index');
