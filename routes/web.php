@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::resource('invoice',\App\Http\Controllers\Dashborad\InvoicesController::class);
+Route::get('section/{id}','\App\Http\Controllers\Dashborad\InvoicesController@getproduct');
 Route::resource('sections',\App\Http\Controllers\Dashborad\SectionController::class);
 Route::resource('products',\App\Http\Controllers\Dashborad\ProductController::class);
 
