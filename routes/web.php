@@ -24,6 +24,16 @@ Route::resource('invoice',\App\Http\Controllers\Dashborad\InvoicesController::cl
 Route::get('section/{id}','\App\Http\Controllers\Dashborad\InvoicesController@getproduct');
 Route::resource('sections',\App\Http\Controllers\Dashborad\SectionController::class);
 Route::resource('products',\App\Http\Controllers\Dashborad\ProductController::class);
+Route::resource('InvoiceAttachments', \App\Http\Controllers\InvoiceAttachmentController::class);
+Route::resource('Invoice', \App\Http\Controllers\Dashborad\InvoicesController::class);
+
+Route::get('/InvoicesDetails/{id}','\App\Http\Controllers\Dashborad\InvoicesDetailsController@edit');
+Route::get('download/{invoice_number}/{file_name}', '\App\Http\Controllers\Dashborad\InvoicesDetailsController@get_file');
+Route::get('View_file/{invoice_number}/{file_name}', '\App\Http\Controllers\Dashborad\InvoicesDetailsController@open_file');
+Route::post('delete_file', '\App\Http\Controllers\Dashborad\InvoicesDetailsController@destroy')->name('delete_file');
+
+Route::get('/Status_show/{id}', '\App\Http\Controllers\Dashborad\InvoicesController@show')->name('Status_show');
+Route::post('/Status_Update/{id}', '\App\Http\Controllers\Dashborad\InvoicesController@Status_Update')->name('Status_Update');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
