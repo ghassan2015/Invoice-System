@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers\Dashborad;
 
+use App\Exports\InvoicesExport;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\InvoiceAttachment;
 use App\Models\InvoicesDetail;
 use App\Models\Product;
 use App\Models\Section;
+use App\Notifications\AddInvoice;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\In;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoicesController extends Controller
 {
@@ -94,6 +99,8 @@ class InvoicesController extends Controller
             $imageName = $request->pic->getClientOriginalName();
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
         }
+         $user = \App\Models\User::first();
+         \Illuminate\Support\Facades\Notification::send($user, new AddInvoice($invoice_id));
         session()->flash('Add', 'تم اضافة الفاتورة بنجاح');
         return back();
 
@@ -260,4 +267,11 @@ class InvoicesController extends Controller
         $invoices = Invoice::where('id', $id)->first();
         return view('invoices.Print_invoice',compact('invoices'));
     }
+    public function export()
+    {
+
+        return Excel::download(new InvoicesExport, 'invoices.xlsx');
+
+    }
+
 }

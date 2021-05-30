@@ -25,7 +25,7 @@ Route::get('section/{id}','\App\Http\Controllers\Dashborad\InvoicesController@ge
 Route::resource('sections',\App\Http\Controllers\Dashborad\SectionController::class);
 Route::resource('products',\App\Http\Controllers\Dashborad\ProductController::class);
 Route::resource('InvoiceAttachments', \App\Http\Controllers\InvoiceAttachmentController::class);
-Route::resource('Invoice', \App\Http\Controllers\Dashborad\InvoicesController::class);
+Route::resource('invoices', \App\Http\Controllers\Dashborad\InvoicesController::class);
 
 Route::get('/InvoicesDetails/{id}','\App\Http\Controllers\Dashborad\InvoicesDetailsController@edit');
 Route::get('download/{invoice_number}/{file_name}', '\App\Http\Controllers\Dashborad\InvoicesDetailsController@get_file');
@@ -41,6 +41,13 @@ Route::get('Invoice_UnPaid','\App\Http\Controllers\Dashborad\InvoicesController@
 Route::get('Invoice_Partial','\App\Http\Controllers\Dashborad\InvoicesController@Invoice_Partial');
 Route::resource('Archive', \App\Http\Controllers\Dashborad\InvoiceAchiveController::class);
 Route::get('Print_invoice/{id}','\App\Http\Controllers\Dashborad\InvoicesController@Print_invoice');
+Route::get('invoices_report', '\App\Http\Controllers\Invoices_ReportController@index');
+Route::get('customers_report', '\App\Http\Controllers\Customers_ReportController@index')->name("customers_report");
+Route::get('export_invoices', '\App\Http\Controllers\Dashborad\InvoicesController@export');
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', \App\Http\Controllers\RoleController::class);
+    Route::resource('users', \App\Http\Controllers\UserController::class);
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
