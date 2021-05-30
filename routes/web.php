@@ -34,6 +34,13 @@ Route::post('delete_file', '\App\Http\Controllers\Dashborad\InvoicesDetailsContr
 
 Route::get('/Status_show/{id}', '\App\Http\Controllers\Dashborad\InvoicesController@show')->name('Status_show');
 Route::post('/Status_Update/{id}', '\App\Http\Controllers\Dashborad\InvoicesController@Status_Update')->name('Status_Update');
+Route::get('Invoice_Paid','\App\Http\Controllers\Dashborad\InvoicesController@Invoice_Paid');
+
+Route::get('Invoice_UnPaid','\App\Http\Controllers\Dashborad\InvoicesController@Invoice_UnPaid');
+
+Route::get('Invoice_Partial','\App\Http\Controllers\Dashborad\InvoicesController@Invoice_Partial');
+Route::resource('Archive', \App\Http\Controllers\Dashborad\InvoiceAchiveController::class);
+Route::get('Print_invoice/{id}','\App\Http\Controllers\Dashborad\InvoicesController@Print_invoice');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
